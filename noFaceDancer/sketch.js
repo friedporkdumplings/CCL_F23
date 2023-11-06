@@ -15,7 +15,7 @@ let dancer;
 
 function setup() {
   // no adjustments in the setup function needed...
-  createCanvas(windowWidth, windowHeight);
+  createCanvas(600, 400);
   // ...except to adjust the dancer's name on the next line:
   dancer = new JaeDancer(width / 2, height / 2);
 }
@@ -23,7 +23,6 @@ function setup() {
 function draw() {
   // you don't need to make any adjustments inside the draw loop
   background(0);
-  drawFloor(); // for reference only
   dancer.update();
   dancer.display();
 }
