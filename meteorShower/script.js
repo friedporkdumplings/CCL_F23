@@ -29,12 +29,10 @@ function draw() {
   for (let i = meteors.length - 1; i >= 0; i--) {
     meteors[i].update();
     meteors[i].display();
-
     if (meteors[i].y > height || meteors[i].x > width) {
       meteors.splice(i, 1);
     }
   }
-
   if (meteors.length < 20) {
     meteors.push(new Meteor());
   }
@@ -58,19 +56,16 @@ class Meteor {
     this.speed = random(1, 4);
     this.length = random(80, 100);
   }
-
   update() {
     this.y += this.speed;
     this.x += this.speed;
   }
-
   display() {
     stroke(255);
     strokeWeight(2);
     line(this.x, this.y, this.x + this.length, this.y + this.length);
 
   }
-
   offscreen() {
     return this.y > height;
   }
@@ -82,7 +77,6 @@ class Star {
     this.y = startY;
     this.dia = random(2, 5);
   }
-
   display() {
     push();
     translate(this.x, this.y);
