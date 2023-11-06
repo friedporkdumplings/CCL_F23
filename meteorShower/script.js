@@ -66,9 +66,6 @@ class Meteor {
     line(this.x, this.y, this.x + this.length, this.y + this.length);
 
   }
-  offscreen() {
-    return this.y > height;
-  }
 }
 
 class Star {
