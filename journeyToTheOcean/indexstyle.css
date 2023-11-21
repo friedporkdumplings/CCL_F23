@@ -49,6 +49,7 @@ p {
   font-size: 18px;
   margin-top: 20px;
   color: black;
+  margin-bottom: 0px;
 }
 
 .instructions{
@@ -106,7 +107,11 @@ h1 {
   text-align: left;
 }
 
+.instructions{
+  margin-bottom: 0px;
+}
+
 #canvasWrapper {
-  margin-top: 20px;
+  margin-top: 0px;
   border: 15px #ff69b4;
 }

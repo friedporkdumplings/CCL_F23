@@ -185,7 +185,7 @@ class Eren {
   }
 
   resetPosition() {
-    // Reset Eren's position to the previous position
+    // reset Eren's position to the previous position before user pressed key to touch wall
     if (isUpKeyPressed) {
       this.y += 2;
     }
@@ -198,7 +198,7 @@ class Eren {
     if (isRightKeyPressed) {
       this.x -= 2;
     }
-    // Reset key states to stop movement
+    // resets key states to stop further movement
     isUpKeyPressed = isDownKeyPressed = isLeftKeyPressed = isRightKeyPressed = false;
   }
 
