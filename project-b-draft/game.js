@@ -1,6 +1,5 @@
-let currentMaze;
-let eren;
 let walls = [];
+let eren;
 let isUpKeyPressed = false;
 let isDownKeyPressed = false;
 let isLeftKeyPressed = false;
@@ -98,6 +97,12 @@ function draw() {
   eren.display();
 }
 
+
+
+// maze 
+
+
+
 class MazeWall {
   constructor(x1, y1, x2, y2) {
     this.x1 = x1;
@@ -137,9 +142,14 @@ function keyReleased() {
   }
 }
 
+
+
+
+
+// eren sprite 
+
 class Eren {
   constructor() {
-    // inital starting position
     this.radius = 15;
     this.x = 395;
     this.y = 30;
@@ -161,6 +171,7 @@ class Eren {
     }
   }
   
+  // check if eren sprite is touching wall object
   checkCollision() {
     let erenLeft = this.x - this.radius;
     let erenRight = this.x + this.radius;
@@ -184,8 +195,8 @@ class Eren {
     }
   }
 
+  // make eren go back to where he was before user touched walls
   resetPosition() {
-    // reset Eren's position to the previous position before user pressed key to touch wall
     if (isUpKeyPressed) {
       this.y += 2;
     }
@@ -198,7 +209,6 @@ class Eren {
     if (isRightKeyPressed) {
       this.x -= 2;
     }
-    // resets key states to stop further movement
     isUpKeyPressed = isDownKeyPressed = isLeftKeyPressed = isRightKeyPressed = false;
   }
 

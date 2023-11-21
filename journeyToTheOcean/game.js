@@ -1,13 +1,18 @@
-let currentMaze;
-let eren;
 let walls = [];
+let eren;
 let isUpKeyPressed = false;
 let isDownKeyPressed = false;
 let isLeftKeyPressed = false;
 let isRightKeyPressed = false;
+let wings;
+let wingsObstacle;
+let endingScene;
+let displayEndingScene = false;
 
 function preload() {
   erenSprite = loadImage('images/erenSprite.png'); 
+  wings = loadImage('images/wof.png')
+  endingScene = loadImage('images/endingScene.jpg');
 }
 
 function setup() {
@@ -84,6 +89,7 @@ function setup() {
   walls.push(new MazeWall(690, 400, 745, 400));
   walls.push(new MazeWall(745, 445, 800, 445));
 
+  wingsObstacle = new WingsObstacle(700, 400);
   eren = new Eren();
 }
 
@@ -96,7 +102,31 @@ function draw() {
 
   eren.update();
   eren.display();
+  
+    // Check if the ending scene should be displayed
+  if (displayEndingScene) {
+    // Display the ending scene
+    image(endingScene, 0, 0, width, height);
+  } else {
+    // Display the walls
+    for (let wall of walls) {
+      wall.display();
+    }
+
+    // Display the wings obstacle
+    wingsObstacle.display();
+
+    // Check collision with the wings obstacle
+    wingsObstacle.checkCollisionWithEren(eren);
 }
+}
+
+
+
+
+
+
+// maze 
 
 class MazeWall {
   constructor(x1, y1, x2, y2) {
@@ -137,9 +167,16 @@ function keyReleased() {
   }
 }
 
+
+
+
+
+
+
+// eren sprite 
+
 class Eren {
   constructor() {
-    // inital starting position
     this.radius = 15;
     this.x = 395;
     this.y = 30;
@@ -161,6 +198,7 @@ class Eren {
     }
   }
   
+  // check if eren sprite is touching wall object
   checkCollision() {
     let erenLeft = this.x - this.radius;
     let erenRight = this.x + this.radius;
@@ -184,8 +222,8 @@ class Eren {
     }
   }
 
+  // make eren go back to where he was before user touched walls
   resetPosition() {
-    // Reset Eren's position to the previous position
     if (isUpKeyPressed) {
       this.y += 2;
     }
@@ -198,12 +236,44 @@ class Eren {
     if (isRightKeyPressed) {
       this.x -= 2;
     }
-    // Reset key states to stop movement
     isUpKeyPressed = isDownKeyPressed = isLeftKeyPressed = isRightKeyPressed = false;
   }
 
   display() {
     fill(255, 0, 0);
     image(erenSprite, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+  }
+}
+
+
+
+
+
+
+
+// wings obstacle  
+
+class WingsObstacle {
+  constructor(x, y) {
+    this.x = 380;
+    this.y = 450;
+    this.width = 40; 
+    this.height = 50;
+  }
+  display() {
+    image(wings, this.x, this.y, this.width, this.height);
+  }
+
+  // check if eren is touching wings 
+  checkCollisionWithEren(eren) {
+    if (
+      eren.x - eren.radius < this.x + this.width &&
+      eren.x + eren.radius > this.x &&
+      eren.y - eren.radius < this.y + this.height &&
+      eren.y + eren.radius > this.y
+    ) {
+      // once eren touches the wings the display will change to the ending scene
+      displayEndingScene = true;
+    }
   }
 }

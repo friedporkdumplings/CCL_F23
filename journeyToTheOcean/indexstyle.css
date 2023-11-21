@@ -1,16 +1,15 @@
 body {
   background-image:url("https://i.pinimg.com/originals/91/00/2d/91002d382da1f64a470b822e88965af3.jpg");
-  background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0 0;
   font-family: 'Monaco', monospace;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  padding-top: 10px;
+  height: 100%;
   color: black;
-  margin-top: 10%;
 }
 
 .introduction{
