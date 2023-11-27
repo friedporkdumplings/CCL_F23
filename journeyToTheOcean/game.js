@@ -137,12 +137,16 @@ class MazeWall {
   }
 
   display() {
-    stroke("black");
+    stroke(191, 107, 153);
     strokeWeight(5);
     line(this.x1, this.y1, this.x2, this.y2);
   }
 }
 
+
+// key pressed and key released instead of just keypressed because i didn't
+// like having to continously press one key over and over again for movement
+// when i can press and hold a key
 function keyPressed() {
   if (keyCode === UP_ARROW) {
     isUpKeyPressed = true;
