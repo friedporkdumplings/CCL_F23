@@ -1,9 +1,9 @@
 let walls = [];
 let eren;
-let isUpKeyPressed = false;
-let isDownKeyPressed = false;
-let isLeftKeyPressed = false;
-let isRightKeyPressed = false;
+let UpKeyPressed = false;
+let DownKeyPressed = false;
+let LeftKeyPressed = false;
+let RightKeyPressed = false;
 
 function preload() {
   erenSprite = loadImage('images/erenSprite.png'); 
@@ -120,25 +120,25 @@ class MazeWall {
 
 function keyPressed() {
   if (keyCode === UP_ARROW) {
-    isUpKeyPressed = true;
+    UpKeyPressed = true;
   } else if (keyCode === DOWN_ARROW) {
-    isDownKeyPressed = true;
+    DownKeyPressed = true;
   } else if (keyCode === LEFT_ARROW) {
-    isLeftKeyPressed = true;
+    LeftKeyPressed = true;
   } else if (keyCode === RIGHT_ARROW) {
-    isRightKeyPressed = true;
+    RightKeyPressed = true;
   }
 }
 
 function keyReleased() {
   if (keyCode === UP_ARROW) {
-    isUpKeyPressed = false;
+    UpKeyPressed = false;
   } else if (keyCode === DOWN_ARROW) {
-    isDownKeyPressed = false;
+    DownKeyPressed = false;
   } else if (keyCode === LEFT_ARROW) {
-    isLeftKeyPressed = false;
+    LeftKeyPressed = false;
   } else if (keyCode === RIGHT_ARROW) {
-    isRightKeyPressed = false;
+    RightKeyPressed = false;
   }
 }
 
@@ -157,16 +157,16 @@ class Eren {
 
   update() {
     this.checkCollision();
-    if (isUpKeyPressed) {
+    if (UpKeyPressed) {
       this.y -= 2;
     }
-    if (isDownKeyPressed) {
+    if (DownKeyPressed) {
       this.y += 2;
     }
-    if (isLeftKeyPressed) {
+    if (LeftKeyPressed) {
       this.x -= 2;
     }
-    if (isRightKeyPressed) {
+    if (RightKeyPressed) {
       this.x += 2;
     }
   }
@@ -197,19 +197,19 @@ class Eren {
 
   // make eren go back to where he was before user touched walls
   resetPosition() {
-    if (isUpKeyPressed) {
+    if (UpKeyPressed) {
       this.y += 2;
     }
-    if (isDownKeyPressed) {
+    if (DownKeyPressed) {
       this.y -= 2;
     }
-    if (isLeftKeyPressed) {
+    if (LeftKeyPressed) {
       this.x += 2;
     }
-    if (isRightKeyPressed) {
+    if (RightKeyPressed) {
       this.x -= 2;
     }
-    isUpKeyPressed = isDownKeyPressed = isLeftKeyPressed = isRightKeyPressed = false;
+    UpKeyPressed = DownKeyPressed = LeftKeyPressed = RightKeyPressed = false;
   }
 
   display() {

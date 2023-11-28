@@ -1,9 +1,9 @@
 let walls = [];
 let eren;
-let isUpKeyPressed = false;
-let isDownKeyPressed = false;
-let isLeftKeyPressed = false;
-let isRightKeyPressed = false;
+let UpKeyPressed = false;
+let DownKeyPressed = false;
+let LeftKeyPressed = false;
+let RightKeyPressed = false;
 let wings;
 let wingsObstacle;
 let endingScene;
@@ -13,6 +13,7 @@ function preload() {
   erenSprite = loadImage('images/erenSprite.png'); 
   wings = loadImage('images/wof.png')
   endingScene = loadImage('images/endingScene.jpg');
+  titanSprite = loadImage('images/titanSprite.png');
 }
 
 function setup() {
@@ -91,6 +92,7 @@ function setup() {
 
   wingsObstacle = new WingsObstacle(700, 400);
   eren = new Eren();
+  titan1 = new Titan1();
 }
 
 function draw() {
@@ -103,20 +105,19 @@ function draw() {
   eren.update();
   eren.display();
   
-    // Check if the ending scene should be displayed
+  titan1.update();
+  titan1.display();
+
+  // check if requirements are met for ending scene 
   if (displayEndingScene) {
-    // Display the ending scene
     image(endingScene, 0, 0, width, height);
   } else {
-    // Display the walls
+    // if not fulfilled display the walls
     for (let wall of walls) {
       wall.display();
     }
-
-    // Display the wings obstacle
     wingsObstacle.display();
-
-    // Check collision with the wings obstacle
+    // check collision with the wings obstacle (trigger for ending scene)
     wingsObstacle.checkCollisionWithEren(eren);
 }
 }
@@ -149,25 +150,25 @@ class MazeWall {
 // when i can press and hold a key
 function keyPressed() {
   if (keyCode === UP_ARROW) {
-    isUpKeyPressed = true;
+    UpKeyPressed = true;
   } else if (keyCode === DOWN_ARROW) {
-    isDownKeyPressed = true;
+    DownKeyPressed = true;
   } else if (keyCode === LEFT_ARROW) {
-    isLeftKeyPressed = true;
+    LeftKeyPressed = true;
   } else if (keyCode === RIGHT_ARROW) {
-    isRightKeyPressed = true;
+    RightKeyPressed = true;
   }
 }
 
 function keyReleased() {
   if (keyCode === UP_ARROW) {
-    isUpKeyPressed = false;
+    UpKeyPressed = false;
   } else if (keyCode === DOWN_ARROW) {
-    isDownKeyPressed = false;
+    DownKeyPressed = false;
   } else if (keyCode === LEFT_ARROW) {
-    isLeftKeyPressed = false;
+    LeftKeyPressed = false;
   } else if (keyCode === RIGHT_ARROW) {
-    isRightKeyPressed = false;
+    RightKeyPressed = false;
   }
 }
 
@@ -188,17 +189,17 @@ class Eren {
 
   update() {
     this.checkCollision();
-    if (isUpKeyPressed) {
-      this.y -= 2;
+    if (UpKeyPressed) {
+      this.y -= 1.5;
     }
-    if (isDownKeyPressed) {
-      this.y += 2;
+    if (DownKeyPressed) {
+      this.y += 1.5;
     }
-    if (isLeftKeyPressed) {
-      this.x -= 2;
+    if (LeftKeyPressed) {
+      this.x -= 1.5;
     }
-    if (isRightKeyPressed) {
-      this.x += 2;
+    if (RightKeyPressed) {
+      this.x += 1.5;
     }
   }
   
@@ -228,19 +229,19 @@ class Eren {
 
   // make eren go back to where he was before user touched walls
   resetPosition() {
-    if (isUpKeyPressed) {
+    if (UpKeyPressed) {
       this.y += 2;
     }
-    if (isDownKeyPressed) {
+    if (DownKeyPressed) {
       this.y -= 2;
     }
-    if (isLeftKeyPressed) {
+    if (LeftKeyPressed) {
       this.x += 2;
     }
-    if (isRightKeyPressed) {
+    if (RightKeyPressed) {
       this.x -= 2;
     }
-    isUpKeyPressed = isDownKeyPressed = isLeftKeyPressed = isRightKeyPressed = false;
+    UpKeyPressed = DownKeyPressed = LeftKeyPressed = RightKeyPressed = false;
   }
 
   display() {
@@ -281,3 +282,29 @@ class WingsObstacle {
     }
   }
 }
+
+
+
+
+
+class Titan1 {
+  constructor() {
+    this.radius = 23;
+    this.x = 10;
+    this.y = 25;
+    this.speed = 3;
+  }
+
+  update() {
+    this.x += this.speed; 
+    if(this.x>=350 || this.x<0 ){
+      this.speed = this.speed*-1;
+    }
+  }
+
+display() {
+  fill(255, 0, 0);
+  image(titanSprite, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+}
+}
+
