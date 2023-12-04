@@ -8,17 +8,26 @@ let wings;
 let wingsObstacle;
 let endingScene;
 let displayEndingScene = false;
+let titan1;
+let titan2;
+let gameMusic;
 
 function preload() {
   erenSprite = loadImage('images/erenSprite.png'); 
   wings = loadImage('images/wof.png')
   endingScene = loadImage('images/endingScene.jpg');
   titanSprite = loadImage('images/titanSprite.png');
+  beastSprite = loadImage('images/beastSprite.png');
+
+  gameMusic = loadSound('sounds/gameMusic.mp3');
 }
 
 function setup() {
   let cw = createCanvas(800,500);
   cw.parent("canvasWrapper"); 
+
+  gameMusic.loop();
+
   walls.push(new MazeWall(2, 2, 2, 500));
   walls.push(new MazeWall(2, 2, 370, 2));
   walls.push(new MazeWall(425, 2, 745, 2));
@@ -93,6 +102,7 @@ function setup() {
   wingsObstacle = new WingsObstacle(700, 400);
   eren = new Eren();
   titan1 = new Titan1();
+  titan2 = new Titan2();
 }
 
 function draw() {
@@ -107,6 +117,9 @@ function draw() {
   
   titan1.update();
   titan1.display();
+
+  titan2.update();
+  titan2.display();
 
   // check if requirements are met for ending scene 
   if (displayEndingScene) {
@@ -184,38 +197,37 @@ class Eren {
   constructor() {
     this.radius = 15;
     this.x = 395;
-    this.y = 30;
+    this.y = 32;
   }
 
   update() {
     this.checkCollision();
     if (UpKeyPressed) {
-      this.y -= 1.5;
+      this.y -= 2;
     }
     if (DownKeyPressed) {
-      this.y += 1.5;
+      this.y += 2;
     }
     if (LeftKeyPressed) {
-      this.x -= 1.5;
+      this.x -= 2;
     }
     if (RightKeyPressed) {
-      this.x += 1.5;
+      this.x += 2;
     }
   }
   
-  // check if eren sprite is touching wall object
   checkCollision() {
     let erenLeft = this.x - this.radius;
     let erenRight = this.x + this.radius;
     let erenTop = this.y - this.radius;
     let erenBottom = this.y + this.radius;
 
+    // check walls
     for (let wall of walls) {
       let wallLeft = min(wall.x1, wall.x2);
       let wallRight = max(wall.x1, wall.x2);
       let wallTop = min(wall.y1, wall.y2);
       let wallBottom = max(wall.y1, wall.y2);
-
       if (
         erenLeft < wallRight &&
         erenRight > wallLeft &&
@@ -225,28 +237,61 @@ class Eren {
         this.resetPosition();
       }
     }
+
+    // check titan 1
+    let titan1Left = titan1.x - titan1.radius;
+    let titan1Right = titan1.x + titan1.radius;
+    let titan1Top = titan1.y - titan1.radius;
+    let titan1Bottom = titan1.y + titan1.radius;
+    if (
+      erenLeft < titan1Right &&
+      erenRight > titan1Left &&
+      erenTop < titan1Bottom &&
+      erenBottom > titan1Top
+    ) {
+      this.restart();
+    }
+
+    // check titan 2
+    let titan2Left = titan2.x - titan2.radius;
+    let titan2Right = titan2.x + titan2.radius;
+    let titan2Top = titan2.y - titan2.radius;
+    let titan2Bottom = titan2.y + titan2.radius;
+    if (
+      erenLeft < titan2Right &&
+      erenRight > titan2Left &&
+      erenTop < titan2Bottom &&
+      erenBottom > titan2Top
+    ) {
+      this.restart();
+    }
   }
 
   // make eren go back to where he was before user touched walls
   resetPosition() {
     if (UpKeyPressed) {
-      this.y += 2;
+      this.y += 8;
     }
     if (DownKeyPressed) {
-      this.y -= 2;
+      this.y -= 8;
     }
     if (LeftKeyPressed) {
-      this.x += 2;
+      this.x += 8;
     }
     if (RightKeyPressed) {
-      this.x -= 2;
+      this.x -= 8;
     }
     UpKeyPressed = DownKeyPressed = LeftKeyPressed = RightKeyPressed = false;
   }
 
+  restart(){
+    this.x = 395;
+    this.y = 32;
+  }
+  
   display() {
     fill(255, 0, 0);
-    image(erenSprite, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+    image(erenSprite, this.x - this.radius, this.y - this.radius, this.radius * 1.3, this.radius * 2);
   }
 }
 
@@ -289,10 +334,10 @@ class WingsObstacle {
 
 class Titan1 {
   constructor() {
-    this.radius = 23;
+    this.radius = 21;
     this.x = 10;
-    this.y = 25;
-    this.speed = 3;
+    this.y = 26;
+    this.speed = 2.4;
   }
 
   update() {
@@ -304,7 +349,28 @@ class Titan1 {
 
 display() {
   fill(255, 0, 0);
-  image(titanSprite, this.x - this.radius, this.y - this.radius, this.radius * 2, this.radius * 2);
+  image(titanSprite, this.x - this.radius, this.y - this.radius, this.radius * 1.5, this.radius * 2);
 }
 }
 
+
+class Titan2 {
+  constructor() {
+    this.radius = 22;
+    this.x = 240;
+    this.y = 277;
+    this.speed = 3;
+  }
+
+  update() {
+    this.x += this.speed; 
+    if(this.x>=400|| this.x<240 ){
+      this.speed = this.speed*-1;
+    }
+  }
+
+display() {
+  fill(255, 0, 0);
+  image(beastSprite, this.x - this.radius, this.y - this.radius, this.radius * 1.5, this.radius * 2);
+}
+}

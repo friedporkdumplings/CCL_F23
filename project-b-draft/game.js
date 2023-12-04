@@ -198,16 +198,16 @@ class Eren {
   // make eren go back to where he was before user touched walls
   resetPosition() {
     if (UpKeyPressed) {
-      this.y += 2;
+      this.y += 8;
     }
     if (DownKeyPressed) {
-      this.y -= 2;
+      this.y -= 8;
     }
     if (LeftKeyPressed) {
-      this.x += 2;
+      this.x += 8;
     }
     if (RightKeyPressed) {
-      this.x -= 2;
+      this.x -= 8;
     }
     UpKeyPressed = DownKeyPressed = LeftKeyPressed = RightKeyPressed = false;
   }

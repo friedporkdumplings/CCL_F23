@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=shadow-multiple">
+    <link rel="stylesheet" href="indexstyle.css">
+    
+
+    
+    <!-- link p5 library in head-->
+    <script src="lib/p5.js"></script>
+    <title>Project B - Journey to the Sea</title>
+    
+</head>
+<body>
+    <div class="textbg"> 
+    <div class="introduction">
+    <h1 class="font-effect-shadow-multiple"> JOURNEY TO THE SEA </h1>
+    <p class="tagline">An Attack on Titan Maze Game</p>
+
+    <div class="backstory">
+        <h3>Backstory</h3>
+        <p>During a Survey Corps' expedition beyond Wall Maria, 
+           when are following the trail left by a crawling titan,
+           they end up at the ocean. However, during the journey 
+           Eren gets distracted by some birds which causes him to 
+           get separated from the rest of the group. Assist him in 
+           reuniting with his friends at the ocean where they await him.
+        </p>
+    </div>
+
+    <!-- add in images of titans as clear example of what to avoid -->
+
+    <div class="instructions">
+        <h3>How to Play</h3>
+        <ol>
+            <li>Use the WASD keys to guide Eren.
+                <div class="image-row">
+                    <img class="large-image" src="images/keys.jpg" alt="Keys">
+                </div>
+            </li>
+            <li>Be cautious and avoid titans to prevent restarting.
+                <div class="image-row">
+                    <img class="small-image" src="images/titanSprite.png" alt="Titan Sprite">
+                    <img class="small-image" src="images/beastSprite.png" alt="Beast Sprite">
+                    <img class="small-image" src="images/jawSprite.png" alt="Jaw Sprite">
+                </div>
+            </li>
+            <li>Interact with specific obstacles to teleport within the maze.
+                <div class="image-row">
+                    <img class="small-image" src="images/knife.png" alt="Knife">
+                    <img class="small-image" src="images/flower.png" alt="Flower">
+                    <img class="small-image" src="images/baseball.png" alt="Baseball">
+                </div>
+            </li>
+            <li>Navigate through the titan-infested maze.</li>
+            <li>Reach the ocean by touching the Wings of Freedom.</li>
+        </ol>
+        <p><strong>Click the Image Below to Start the Game!</strong></p>
+    </div>
+    
+    
+    <div  id="canvasWrapper">
+        <script src="startingScreen.js"></script>
+    </div>
+    <script>
+            var canvasWrapper = document.getElementById("canvasWrapper");
+            canvasWrapper.addEventListener("click", function () {
+                window.location.href = "game.html";
+            });
+    </script>
+</div>
+</body>
+</html>
