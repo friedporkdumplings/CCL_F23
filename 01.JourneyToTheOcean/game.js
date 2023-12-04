@@ -280,16 +280,13 @@ class Eren {
   update() {
     this.checkCollision();
     if (UpKeyPressed) {
-      this.y -= 1.8;
-    }
-    if (DownKeyPressed) {
-      this.y += 1.8;
-    }
-    if (LeftKeyPressed) {
-      this.x -= 1.8;
-    }
-    if (RightKeyPressed) {
-      this.x +=1.8;
+      this.y -= 2;
+    } else if (DownKeyPressed) {
+      this.y += 2;
+    } else if (LeftKeyPressed) {
+      this.x -= 2;
+    } else if (RightKeyPressed) {
+      this.x += 2;
     }
 
     if (UpKeyPressed || DownKeyPressed || LeftKeyPressed || RightKeyPressed) {
@@ -319,10 +316,10 @@ class Eren {
       let wallTop = min(wall.y1, wall.y2);
       let wallBottom = max(wall.y1, wall.y2);
       if (
-        erenLeft < wallRight &&
-        erenRight > wallLeft &&
-        erenTop < wallBottom &&
-        erenBottom > wallTop
+        erenLeft <= wallRight &&
+        erenRight >= wallLeft &&
+        erenTop <= wallBottom &&
+        erenBottom >= wallTop
       ) {
         this.resetPosition();
       }
@@ -461,16 +458,16 @@ class Eren {
   // make eren go back to where he was before user touched walls
   resetPosition() {
     if (UpKeyPressed) {
-      this.y += 10;
+      this.y += 8;
     }
     if (DownKeyPressed) {
-      this.y -= 10;
+      this.y -= 8;
     }
     if (LeftKeyPressed) {
-      this.x +=10;
+      this.x +=8;
     }
     if (RightKeyPressed) {
-      this.x -= 10;
+      this.x -= 8;
     }
     UpKeyPressed = DownKeyPressed = LeftKeyPressed = RightKeyPressed = false;
   }
