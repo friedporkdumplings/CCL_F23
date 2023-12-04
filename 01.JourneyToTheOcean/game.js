@@ -280,16 +280,16 @@ class Eren {
   update() {
     this.checkCollision();
     if (UpKeyPressed) {
-      this.y -= 1.5;
+      this.y -= 2;
     }
     if (DownKeyPressed) {
-      this.y += 1.5;
+      this.y += 2;
     }
     if (LeftKeyPressed) {
-      this.x -= 1.5;
+      this.x -= 2;
     }
     if (RightKeyPressed) {
-      this.x +=1.5;
+      this.x +=2;
     }
 
     if (UpKeyPressed || DownKeyPressed || LeftKeyPressed || RightKeyPressed) {
